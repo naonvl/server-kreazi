@@ -29,6 +29,7 @@ class LoginController extends Controller
                         'phone' => $val->phone,
                         'email' => $val->email,
                         'subdomain' => $val->subdomain,
+                        'logoUrl' => $val->logoUrl,
                     ]);
                 }
             }

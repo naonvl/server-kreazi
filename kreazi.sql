@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 22 Jan 2024 pada 12.15
+-- Waktu pembuatan: 22 Jan 2024 pada 14.40
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -152,6 +152,7 @@ CREATE TABLE `users` (
   `role` int(1) NOT NULL,
   `email` varchar(100) NOT NULL,
   `subdomain` varchar(100) NOT NULL,
+  `logoUrl` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `status` int(1) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -162,8 +163,8 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `role`, `email`, `subdomain`, `phone`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'super admin', 'admin', '$2y$10$bVN5ezC7KNliC3LAEyqhl.eVJlHptHKCKaqnkFfSnbk9XNBjRH3C2', 1, 'admin@kreaziku.id', 'rajibsainan27', '12345678', 1, '2024-01-22 07:30:58', '2024-01-22 11:14:15');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `role`, `email`, `subdomain`, `logoUrl`, `phone`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'super admin', 'admin1', '$2y$10$kXA0hZRAjBxVQkmVQ6rEkOHbqJQQFf/sBQdwFMJi1Dh.MPzdEY5OK', 1, 'admin@kreaziku.id', 'rajibsainan27', '', '12345678', 1, '2024-01-22 07:30:58', '2024-01-22 20:14:02');
 
 --
 -- Indexes for dumped tables

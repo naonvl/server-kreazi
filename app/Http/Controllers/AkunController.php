@@ -46,6 +46,24 @@ class AkunController extends Controller
       'phone' => 'required|min:10',
     ]);
 
+    if($request->has('logo') == true){
+      $logo = $request->logo;
+      $new_logo = time()."_".$gambar->getClientOriginalName();
+      $logo->move('uploads/akun/', $new_logo);
+
+      User::create([
+        'name' => $request->name,
+        'role' => $request->role,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'username' => $request->username,
+        'password' => Hash::make($request->password),
+        'subdomain' => $request->subdomain,
+        'logoUrl' => url("uploads/akun/".$new_logo),
+        'status' => '1',
+        'create_at' => date('Y-m-d HH:mm:s'),
+      ]);
+    }else{
       User::create([
         'name' => $request->name,
         'role' => $request->role,
@@ -55,9 +73,9 @@ class AkunController extends Controller
         'password' => Hash::make($request->password),
         'subdomain' => $request->subdomain,
         'status' => '1',
-        // 'create_date' => date('Y-m-d HH:mm:s'),
+        'create_at' => date('Y-m-d HH:mm:s'),
       ]);
-
+    }
 
     return redirect()->back()->with('success', 'User Baru Berhasil Disimpan');
   }
@@ -95,7 +113,12 @@ class AkunController extends Controller
 
     $user = User::findorfail($user_id);
 
-    if($request->password == true){
+    if($request->logo == true){
+      $logo = $request->logo;
+      $new_logo = time()."_".$gambar->getClientOriginalName();
+      $logo->move('uploads/akun/', $new_logo);
+
+      if($request->password == true ){
         $user_data = [
             'name' => $request->name,
             'role' => $request->role,
@@ -104,9 +127,23 @@ class AkunController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'subdomain' => $request->subdomain,
-            'modified_date' => date('Y-m-d HH:mm:s'),
+            'logoUrl' => url("uploads/akun/".$new_logo),
+            'update_at' => date('Y-m-d HH:mm:s')
         ];
+      }else{
+        $user_data = [
+            'name' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'username' => $request->username,
+            'subdomain' => $request->subdomain,
+            'logoUrl' => url("uploads/akun/".$new_logo),
+            'update_at' => date('Y-m-d HH:mm:s')
+        ];
+      }
     }else{
+      if($request->password == true ){
         $user_data = [
             'name' => $request->name,
             'role' => $request->role,
@@ -115,8 +152,19 @@ class AkunController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'subdomain' => $request->subdomain,
-            'modified_date' => date('Y-m-d HH:mm:s'),
+            'update_at' => date('Y-m-d HH:mm:s')
         ];
+      }else{
+        $user_data = [
+            'name' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'username' => $request->username,
+            'subdomain' => $request->subdomain,
+            'update_at' => date('Y-m-d HH:mm:s')
+        ];
+      }
     }
     $user->update($user_data);
     return redirect()->back()->with('success', 'User Berhasil Diupdate');
@@ -128,23 +176,27 @@ class AkunController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($user_id)
+  public function destroy($uid)
   {
-    $user = User::findorfail($user_id);
-    $user->delete();
-
-    return redirect()->back()->with('success', 'User Berhasil Dihapus');
+    //user id Super Admin tidak bisa dihapus
+    if($uid != '1'){
+      $user = User::findorfail($id);
+      $user->delete();
+      return redirect()->back()->with('success', 'User Berhasil Dihapus');
+    }else{
+      return redirect()->back()->with('error', 'Super Admin Tidak Bisa Dihapus!');
+    }
   }
 
-  public function profil($user_id)
+  public function profil($uid)
   {
-    $user = User::findorfail($user_id);
+    $user = User::findorfail($id);
     return view('user.profile', compact('user'));
   }
 
-  public function edit_profil($user_id)
+  public function edit_profil($uid)
   {
-    $user = User::findorfail($user_id);
+    $user = User::findorfail($id);
     return view('user.edit', compact('user'));
   }
 }

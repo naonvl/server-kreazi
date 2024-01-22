@@ -16,6 +16,7 @@ class UpdateUserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
+            'update_at' => date('Y-m-d HH:mm:s')
         ];
 
         $user_id = $data['uid'];
