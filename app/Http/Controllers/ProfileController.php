@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Model\User;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

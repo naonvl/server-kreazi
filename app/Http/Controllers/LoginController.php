@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,7 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($que) == true){
-            $user = DB::select('select * from users');
-            foreach ($user as $val) {
+            foreach (User::all() as $val) {
                 if($val->username == $que['username']){
                     $response = response()->json([
                         'Success' => '200',
