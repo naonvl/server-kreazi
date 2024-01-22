@@ -27,6 +27,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/akun', 'AkunController');
+Route::resource('/order', 'OrderController');
 
 Route::post('actionlogin', [LoginController::class, 'login_admin'])->name('login_admin');
 Route::get('home', [HomeController::class, 'home'])->name('home')->middleware('auth');
