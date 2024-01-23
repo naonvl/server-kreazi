@@ -37,3 +37,4 @@ Route::post('actionlogout', [LoginController::class, 'actionlogout'])->name('act
 Route::post('/login', 'LoginController@index');
 Route::get('/updateUser', 'UpdateUserController@index');
 Route::get('/profileUser', 'ProfileController@index');
+Route::get('/article', 'ArticleController@index');
