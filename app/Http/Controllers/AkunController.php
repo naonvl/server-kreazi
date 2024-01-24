@@ -46,6 +46,17 @@ class AkunController extends Controller
       'phone' => 'required|min:10',
     ]);
 
+    if($request->role == 1){
+      $role = 1;
+      $main = 1;
+    }elseif($request->role == 2){
+      $role = 2;
+      $main = 0;
+    }elseif($request->role == 3){
+      $role = 3;
+      $main = 0;
+    }
+
     if($request->has('logo') == true){
       $logo = $request->logo;
       $new_logo = time()."_".$gambar->getClientOriginalName();
@@ -53,7 +64,8 @@ class AkunController extends Controller
 
       User::create([
         'name' => $request->name,
-        'role' => $request->role,
+        'role' => $role,
+        'main' => $main,
         'email' => $request->email,
         'phone' => $request->phone,
         'username' => $request->username,
@@ -66,7 +78,8 @@ class AkunController extends Controller
     }else{
       User::create([
         'name' => $request->name,
-        'role' => $request->role,
+        'role' => $role,
+        'main' => $main,
         'email' => $request->email,
         'phone' => $request->phone,
         'username' => $request->username,
@@ -111,6 +124,17 @@ class AkunController extends Controller
         'subdomain' => $request->subdomain,
     ]);
 
+    if($request->role == 1){
+      $role = 1;
+      $main = 1;
+    }elseif($request->role == 2){
+      $role = 2;
+      $main = 0;
+    }elseif($request->role == 3){
+      $role = 3;
+      $main = 0;
+    }
+
     $user = User::findorfail($user_id);
 
     if($request->logo == true){
@@ -121,7 +145,8 @@ class AkunController extends Controller
       if($request->password == true ){
         $user_data = [
             'name' => $request->name,
-            'role' => $request->role,
+            'role' => $role,
+            'main' => $main,
             'email' => $request->email,
             'phone' => $request->phone,
             'username' => $request->username,
@@ -133,7 +158,8 @@ class AkunController extends Controller
       }else{
         $user_data = [
             'name' => $request->name,
-            'role' => $request->role,
+            'role' => $role,
+            'main' => $main,
             'email' => $request->email,
             'phone' => $request->phone,
             'username' => $request->username,
@@ -146,7 +172,8 @@ class AkunController extends Controller
       if($request->password == true ){
         $user_data = [
             'name' => $request->name,
-            'role' => $request->role,
+            'role' => $role,
+            'main' => $main,
             'email' => $request->email,
             'phone' => $request->phone,
             'username' => $request->username,
@@ -157,7 +184,8 @@ class AkunController extends Controller
       }else{
         $user_data = [
             'name' => $request->name,
-            'role' => $request->role,
+            'role' => $role,
+            'main' => $main,
             'email' => $request->email,
             'phone' => $request->phone,
             'username' => $request->username,

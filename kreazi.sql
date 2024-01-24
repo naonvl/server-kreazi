@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 22 Jan 2024 pada 14.40
+-- Waktu pembuatan: 24 Jan 2024 pada 09.33
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -36,6 +36,14 @@ CREATE TABLE `blog` (
   `create_date` datetime NOT NULL,
   `modified_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `blog`
+--
+
+INSERT INTO `blog` (`article_id`, `title`, `caption`, `user`, `status`, `create_date`, `modified_date`) VALUES
+(1, 'ini title', 'ini text isi caption body article', 1, 1, '2024-01-23 13:22:27', '0000-00-00 00:00:00'),
+(2, 'title 2', 'caption 2', 1, 1, '2024-01-23 13:22:27', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -152,6 +160,7 @@ CREATE TABLE `users` (
   `role` int(1) NOT NULL,
   `email` varchar(100) NOT NULL,
   `subdomain` varchar(100) NOT NULL,
+  `main` int(11) NOT NULL,
   `logoUrl` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `status` int(1) NOT NULL,
@@ -163,8 +172,8 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `role`, `email`, `subdomain`, `logoUrl`, `phone`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'super admin', 'admin1', '$2y$10$kXA0hZRAjBxVQkmVQ6rEkOHbqJQQFf/sBQdwFMJi1Dh.MPzdEY5OK', 1, 'admin@kreaziku.id', 'rajibsainan27', '', '12345678', 1, '2024-01-22 07:30:58', '2024-01-22 20:14:02');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `role`, `email`, `subdomain`, `main`, `logoUrl`, `phone`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'super admin', 'admin', '$2y$10$8uMkUze9sVvOeklpeW2uaOgimzdN3mG.YF3tKW1v.rLNT2GmAICrm', 1, 'admin@kreaziku.id', 'www', 0, '', '12345678', 1, '2024-01-22 07:30:58', '2024-01-22 21:27:16');
 
 --
 -- Indexes for dumped tables
@@ -226,7 +235,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `ekspedisi`

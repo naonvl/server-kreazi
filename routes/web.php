@@ -29,12 +29,13 @@ Route::get('/', function () {
 Route::resource('/akun', 'AkunController');
 Route::resource('/order', 'OrderController');
 
-Route::post('actionlogin', [LoginController::class, 'login_admin'])->name('login_admin');
-Route::get('home', [HomeController::class, 'home'])->name('home')->middleware('auth');
-Route::post('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
+Route::post('/actionlogin', [LoginController::class, 'login_admin'])->name('login_admin');
+Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware('auth');
+Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 
 //route api
 Route::post('/login', 'LoginController@index');
 Route::get('/updateUser', 'UpdateUserController@index');
 Route::get('/profileUser', 'ProfileController@index');
 Route::get('/article', 'ArticleController@index');
+Route::get('/routeMitra', 'RouteController@index'); // list route subdomain mitra & page mitra

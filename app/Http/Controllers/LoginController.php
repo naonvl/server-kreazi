@@ -20,6 +20,11 @@ class LoginController extends Controller
         if(Auth::attempt($que) == true){
             foreach (User::all() as $val) {
                 if($val->username == $que['username']){
+                    $main = 'false';
+                    if($val->main == 1){
+                        $main = 'true';
+                    }
+
                     $response = response()->json([
                         'Success' => '200',
                         'Message' => 'Berhasil Login',
@@ -30,6 +35,7 @@ class LoginController extends Controller
                         'email' => $val->email,
                         'subdomain' => $val->subdomain,
                         'logoUrl' => $val->logoUrl,
+                        'main' => $main,
                     ]);
                 }
             }
