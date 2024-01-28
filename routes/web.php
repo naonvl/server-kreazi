@@ -1,35 +1,41 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SiteController;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/clear-cache', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    return 'DONE';
 });
 
-require __DIR__ . '/auth.php';
+Route::get('/', function () {
+    return view('login');
+});
 
-Route::get('/', [PostController::class, 'home'])->name('home');
-Route::get('/search', [PostController::class, 'search'])->name('search');
-Route::get('/about-us', [SiteController::class, 'about'])->name('about-us');
-Route::get('/category/{category:slug}', [PostController::class, 'byCategory'])->name('by-category');
-Route::get('/{post:slug}', [PostController::class, 'show'])->name('view');
+Route::resource('/akun', 'AkunController');
+Route::resource('/order', 'OrderController');
+
+Route::post('/actionlogin', [LoginController::class, 'login_admin'])->name('login_admin');
+Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware('auth');
+Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
+
+//route api
+Route::post('/login', 'LoginController@index');
+Route::get('/updateUser', 'UpdateUserController@index');
+Route::get('/profileUser', 'ProfileController@index');
+Route::get('/article', 'ArticleController@index');
+Route::get('/routeMitra', 'RouteController@index'); // list route subdomain mitra & page mitra
