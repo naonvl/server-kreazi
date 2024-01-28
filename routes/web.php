@@ -14,6 +14,8 @@
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Providers\Filament\AdminPanelProvider;
 
 Route::get('/clear-cache', function () {
     Artisan::call('config:clear');
@@ -22,9 +24,10 @@ Route::get('/clear-cache', function () {
     return 'DONE';
 });
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::redirect('/', '/admin');
+// Route::get('/', function () {
+//     return view('login');
+// });
 
 Route::resource('/akun', 'AkunController');
 Route::resource('/order', 'OrderController');
@@ -32,10 +35,3 @@ Route::resource('/order', 'OrderController');
 Route::post('/actionlogin', [LoginController::class, 'login_admin'])->name('login_admin');
 Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware('auth');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
-
-//route api
-Route::post('/login', 'LoginController@index');
-Route::get('/updateUser', 'UpdateUserController@index');
-Route::get('/profileUser', 'ProfileController@index');
-Route::get('/article', 'ArticleController@index');
-Route::get('/routeMitra', 'RouteController@index'); // list route subdomain mitra & page mitra
