@@ -7,6 +7,7 @@ use App\Http\Controllers\UpdateUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\FirebaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,4 @@ Route::get('/profileUser', [ProfileController::class, 'index']);
 Route::get('/article', [ArticleController::class, 'index']);
 Route::get('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
 
-Route::get('/auth', [FirebaseToken::class, 'verify'])->name('verify')->middleware('token');
+Route::get('/auth', [FirebaseController::class, 'auth']);//->name('verify')->middleware('token');
