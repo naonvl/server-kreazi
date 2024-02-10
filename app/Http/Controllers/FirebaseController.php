@@ -115,19 +115,7 @@ class FirebaseController extends Controller
                 'payload' => $payload,
             ]);
         }
-
-        // $que = [
-        //     'email' => $email,
-        // ];
-
-        // if(Auth::attempt($que) == true){
-        //     return $response;
-        // }else{
-        //     return response()->json([
-        //         'Success' => '0',
-        //         'Message' => 'Gagal Login!'
-        //     ]);
-        // }
+        
         return $response;
     }
 }

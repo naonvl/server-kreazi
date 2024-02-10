@@ -33,5 +33,34 @@ class UpdateUserController extends Controller
             ]);
         }
     }
+
+    public function editUser(Request $request){
+        $data = $request->json()->all();
+
+        $que = [
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'update_at' => date('Y-m-d HH:mm:s')
+        ];
+
+        $user_id = $data['uid'];
+        $user = User::findorfail($user_id);
+        if($user->update($que)){
+            return response()->json([
+                'Success' => '200',
+                'Message' => 'Data User Berhasil di Update'
+            ]);
+        }else{
+            return response()->json([
+                'Success' => '0',
+                'Message' => 'Update data gagal!'
+            ]);
+        }
+    }
 }
+
+
 ?>

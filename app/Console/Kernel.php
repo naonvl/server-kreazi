@@ -27,5 +27,6 @@ class Kernel extends ConsoleKernel
 
     protected $routeMiddleware = [
        'admin' => \App\Http\Middleware\User::class,
+       'token' => \App\Http\Middleware\Token::class,
     ];
 }
