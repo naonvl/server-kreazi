@@ -46,13 +46,13 @@ class AkunController extends Controller
       'phone' => 'required|min:10',
     ]);
 
-    if($request->role == 1){
+    if($request->role == 1){ //admin
       $role = 1;
       $main = 1;
-    }elseif($request->role == 2){
+    }elseif($request->role == 2){ //tenant
       $role = 2;
       $main = 0;
-    }elseif($request->role == 3){
+    }elseif($request->role == 3){ //customer
       $role = 3;
       $main = 0;
     }

@@ -31,4 +31,4 @@ Route::get('/profileUser', [ProfileController::class, 'index']);
 Route::get('/article', [ArticleController::class, 'index']);
 Route::get('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
 
-Route::get('/auth', [FirebaseController::class, 'auth']);//->name('verify')->middleware('token');
+Route::post('/auth', [FirebaseController::class, 'auth']);//->name('verify')->middleware('token');

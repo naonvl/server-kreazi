@@ -13,13 +13,13 @@ class LoginController extends Controller
         $data = $request->json()->all();
 
         $que = [
-            'username' => $data['username'],
+            'email' => $data['email'],
             'password' => $data['password'],
         ];
 
         if(Auth::attempt($que) == true){
             foreach (User::all() as $val) {
-                if($val->username == $que['username']){
+                if($val->email == $que['email']){
                     $main = 'false';
                     if($val->main == 1){
                         $main = 'true';

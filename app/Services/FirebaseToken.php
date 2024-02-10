@@ -4,11 +4,12 @@ namespace App\Services;
 
 use UnexpectedValueException;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class FirebaseToken
+class FirebaseToken extends JWT
 {
     /**
      * The list of allowed signing algorithms used in the JWT.
@@ -29,7 +30,7 @@ class FirebaseToken
      *
      * @var string
      */
-    const CACHE_KEY = 'AIzaSyC_bZwjf2gq7kb9eGYLBLbYusI8Tm2bFgs';
+    const CACHE_KEY = 'FIREBASE_JWT_PUBLIC_KEYS';
 
     /**
      * Firebase ID token.
@@ -53,18 +54,26 @@ class FirebaseToken
      * @return object
      * @throws UnexpectedValueException|Exception
      */
+    
     public function verify(string $projectId): object
     {
-        $keys = $this->getPublicKeys();
+        try {
+            $keys = $this->getPublicKeys();
+            $payload = JWT::decode($this->token, new Key($keys[self::getTokenKid()], 'RS256'));
 
-        $data = $request->json()->all();
+            $this->validatePayload($payload, $projectId);
+            return $payload;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 
-        // $payload = JWT::decode($this->token, $keys, self::ALLOWED_ALGOS);
-        $payload = JWT::decode($data['token'], $keys, self::ALLOWED_ALGOS);
-
-        $this->validatePayload($payload, $projectId);
-
-        return $payload;
+    private function getTokenKid(): string
+    {
+        $tks = \explode('.', $this->token);
+        $headerRaw = static::urlsafeB64Decode($tks[0]);
+        $header = static::jsonDecode($headerRaw);
+        return $header->kid;
     }
 
     /**
