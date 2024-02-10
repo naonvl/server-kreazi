@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\FirebaseToken;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 
@@ -81,8 +82,8 @@ class FirebaseController extends Controller
                 'email' => $email,
                 'username' => $username,
                 'subdomain' => $subdomain,
-                'payload' => $payload,
                 'role_user' => $role_user,
+                'payload' => $payload,
             ]);
         }else{
             foreach (User::all() as $val) {
@@ -111,8 +112,22 @@ class FirebaseController extends Controller
                 'username' => $username,
                 'subdomain' => $subdomain,
                 'role' => $role,
+                'payload' => $payload,
             ]);
         }
+
+        // $que = [
+        //     'email' => $email,
+        // ];
+
+        // if(Auth::attempt($que) == true){
+        //     return $response;
+        // }else{
+        //     return response()->json([
+        //         'Success' => '0',
+        //         'Message' => 'Gagal Login!'
+        //     ]);
+        // }
         return $response;
     }
 }

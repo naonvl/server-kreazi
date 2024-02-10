@@ -26,9 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //route api
 Route::post('/login', [LoginController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'index']);
 Route::post('/updateUser', [UpdateUserController::class, 'index']);
 Route::get('/profileUser', [ProfileController::class, 'index']);
 Route::get('/article', [ArticleController::class, 'index']);
 Route::get('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
 
 Route::post('/auth', [FirebaseController::class, 'auth']);//->name('verify')->middleware('token');
+Route::post('/editUser', [UpdateUserController::class, 'editUser'])->middleware('user');
