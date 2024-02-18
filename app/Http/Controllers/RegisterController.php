@@ -19,6 +19,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'username' => $data['username'],
             'phone' => $data['phone'],
+            'logoUrl' => "",
         ];
 
         $available = 1;

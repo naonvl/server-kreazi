@@ -9,9 +9,9 @@ class RouteController extends Controller
     public function index(Request $request){
         $data = $request->json()->all();
 
-        $subdomain = $data['subdomain'];
+        // $subdomain = $data['subdomain'];
         // $user = User::where('subdomain', $subdomain)->get();
-        foreach(User::where('subdomain', $subdomain)->get() as $val){
+        foreach(User::where('subdomain', $data['subdomain'])->get() as $val){
             $main = 'false';
             if($val->main == 1){
                 $main = 'true';
