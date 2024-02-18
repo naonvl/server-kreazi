@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UpdateUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
@@ -32,17 +33,17 @@ use App\Http\Middleware\Token;
 Route::get('/article', [ArticleController::class, 'index']);
 Route::get('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
 
-Route::post('/login', [LoginController::class, 'index'])->middleware('auth');
-Route::post('/auth', [FirebaseController::class, 'auth'])->middleware('auth');
+Route::post('/login', [LoginController::class, 'index']);
+Route::post('/auth', [FirebaseController::class, 'auth']);//->middleware('auth');
 Route::post('/register', [RegisterController::class, 'index']);
-Route::post('/updateUser', [UpdateUserController::class, 'index'])->middleware(Token::class);
+Route::post('/updateUser', [UpdateUserController::class, 'index'])->middleware('token');
 Route::get('/profileUser', [ProfileController::class, 'index'])->middleware(Token::class);
 
 //api tenant
 Route::get('/toko', [TokoController::class, 'index'])->middleware(Token::class);
 // Route::post('/bukaToko', [TokoController::class, 'buka_toko'])->middleware(Token::class);
 Route::get('/produk', [TokoController::class, 'produk'])->middleware(Token::class);
-Route::post('/addProduk', [TokoController::class, 'add_produk']);//->middleware(Token::class);
+Route::post('/addProduk', [TokoController::class, 'add_produk'])->middleware(Token::class);
 Route::post('/customProduk', [TokoController::class, 'custom_produk'])->middleware(Token::class);
 Route::post('/editProduk', [TokoController::class, 'update_produk'])->middleware(Token::class);
 

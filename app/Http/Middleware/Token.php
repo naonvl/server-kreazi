@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\Token as Middleware;
 
-class Token extends Middleware
+class Token// extends Middleware
 {
     /**
      * Handle an incoming request.

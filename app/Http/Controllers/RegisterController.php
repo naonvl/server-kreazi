@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -14,13 +15,21 @@ class RegisterController extends Controller
 
         $que = [
             'email' => $data['email'],
-            'password' => $data['password'],
+            'password' => Hash::make($data['password']),
             'name' => $data['name'],
             'username' => $data['username'],
             'phone' => $data['phone'],
         ];
 
-        if(Auth::attempt($que) == true){
+        $available = 1;
+        foreach (User::all() as $val) {
+            if($val->email == $que['email']){
+                $available = 0;
+            }
+        }
+
+        if($available == 1 && User::create($que) == true){
+            // Auth::attempt($que);
             foreach (User::all() as $val) {
                 if($val->email == $que['email']){
                     $main = 'false';
@@ -30,7 +39,7 @@ class RegisterController extends Controller
 
                     $response = response()->json([
                         'Success' => '200',
-                        'Message' => 'Berhasil Login',
+                        'Message' => 'Berhasil Didaftarkan',
                         'uid' => $val->id,
                         'username' => $val->username,
                         'name' => $val->name,
@@ -46,7 +55,7 @@ class RegisterController extends Controller
         }else{
             return response()->json([
                 'Success' => '0',
-                'Message' => 'Password / Username Salah!'
+                'Message' => 'Gagal Registrasi!'
             ]);
         }
     }

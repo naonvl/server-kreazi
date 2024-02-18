@@ -5,7 +5,7 @@ use App\User;
 use App\Models\Product;
 use App\Models\Template;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use App\Http\Requests\MultipartFormRequest;
 
 class TokoController extends Controller
 {
@@ -13,10 +13,10 @@ class TokoController extends Controller
 		$data = $request->json()->all();
 
 		$que = [
-			'id' => $data['uid'],
+			'tenant' => $data['uid'],
 		];
 
-		$product = Product::findorfail($que['id']);
+		$product = Product::find($que['tenant']);
 		$response = response()->json([
 			'product' => $product,
 		]);
@@ -32,26 +32,26 @@ class TokoController extends Controller
 		$data = $request->json()->all();
 
 		$response = response()->json([
-			'product' => Product::find($data['uid']),
+			'product' => Product::all(),//($data['uid']),
 		]);
 
 		return $response;
 	}
 
 	public function add_produk(Request $request){
-		$data = $request->json()->all();
+		// $data = $request->json()->all();
 
-		$this->validate($request, [
-			'file' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
-			'name' => 'required',
-			'tipe' => 'required|numeric',
-			'price' => 'required|numeric',
-			'discount' => 'required|numeric',
-			'description' => 'required',
-			'qty' => 'required|numeric',
-			'status' => 'required|numeric',
-			'tenant' => 'required|numeric',
-		]);
+		// $this->validate($request, [
+		// 	'file' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+		// 	'name' => 'required',
+		// 	'tipe' => 'required|numeric',
+		// 	'price' => 'required|numeric',
+		// 	'discount' => 'required|numeric',
+		// 	'description' => 'required',
+		// 	'qty' => 'required|numeric',
+		// 	'status' => 'required|numeric',
+		// 	'tenant' => 'required|numeric',
+		// ]);
 
 		$file = $request->file('gambar');
 		$nama_file = time().".".$request->file->extension();
@@ -67,12 +67,13 @@ class TokoController extends Controller
 			'qty' => $request->qty,
 			'status' => $request->status,
 			'tenant' => $request->uid,
+			'customer' => '0',
 			'gambarUrl' => url("uploads/product/".$nama_file),
 		]);
 	
 		$success = 0;
 		foreach (Product::all() as $val) {
-			if($val->name == $data['name'] && $val->user == $data['uid'] && $val->tipe == $data['tipe']){
+			if($val->name == $request->name && $val->tenant == $request->uid && $val->tipe == $request->tipe){
 				$success = 1;
 			}
 		}
