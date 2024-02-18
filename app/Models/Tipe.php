@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AppSetting extends Model
+class Tipe extends Model
 {
-    protected $table = 'app_setting';
-    protected $primaryKey = 'id';
-
-    public $timestamps = true;
+    protected $table = 'tipe';
+    protected $primaryKey = 'tipe_id';
 
     protected $fillable = [
-        'logo',
-        'expired_trial',
+        'name',
+        'status',
     ];
+
+
+    public $timestamps = true;
 
     const CREATED_AT = 'create_date';
     const UPDATED_AT = 'modified_date';

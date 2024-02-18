@@ -17,6 +17,9 @@ class Product extends Model
         'description',
         'qty',
         'status',
+        'tenant',
+        'customer',
+        'gambarUrl',
     ];
 
 
