@@ -31,7 +31,7 @@ use App\Http\Middleware\Token;
 
 //route api
 Route::get('/article', [ArticleController::class, 'index']);
-Route::get('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
+Route::post('/routeMitra', [RouteController::class, 'index']); // list route subdomain mitra & page mitra
 
 Route::post('/login', [LoginController::class, 'index']);
 Route::post('/auth', [FirebaseController::class, 'auth']);//->middleware('auth');
