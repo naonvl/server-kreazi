@@ -40,11 +40,13 @@ Route::post('/updateUser', [UpdateUserController::class, 'index'])->middleware('
 Route::get('/profileUser', [ProfileController::class, 'index'])->middleware(Token::class);
 
 //api tenant
+Route::get('/tipe', [TokoController::class, 'get_tipe'])->middleware(Token::class);
+
 Route::get('/toko', [TokoController::class, 'index'])->middleware(Token::class);
 // Route::post('/bukaToko', [TokoController::class, 'buka_toko'])->middleware(Token::class);
 Route::get('/produk', [TokoController::class, 'produk'])->middleware(Token::class);
 Route::post('/addProduk', [TokoController::class, 'add_produk'])->middleware(Token::class);
-Route::post('/customProduk', [TokoController::class, 'custom_produk'])->middleware(Token::class);
+Route::post('/addTemplate', [TokoController::class, 'custom_produk'])->middleware(Token::class);
 Route::post('/editProduk', [TokoController::class, 'update_produk'])->middleware(Token::class);
 
 Route::get('/transaction', [TrasanctionController::class, 'index'])->middleware(Token::class);

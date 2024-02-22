@@ -12,6 +12,8 @@ use App\Services\FirebaseToken;
 use Illuminate\Support\Facades\Auth;
 
 use App\User;
+use App\Models\AppSetting;
+use Carbon\Carbon;
 
 class FirebaseController extends Controller
 {
@@ -86,6 +88,12 @@ class FirebaseController extends Controller
                 'payload' => $payload,
             ]);
         }else{
+
+            foreach (AppSetting::all() as $app) {
+                $expired_trial = $app->expired_trial;
+            }
+            $today = Carbon::today()->locale('id');
+
             foreach (User::all() as $val) {
                 if($val->email == $payload->email){
                     $uid = $val->id;
@@ -97,23 +105,68 @@ class FirebaseController extends Controller
                     $email = $val->email;
                     $username = $val->username;
                     $subdomain = $val->subdomain;
+                    $date_create = $val->created_at;
+                    $create = $val->created_at;
                 }
             }
 
-            $response = response()->json([
-                'Success' => '200',
-                'Message' => 'Akun sudah terdaftar dan berhasil login.',
-                'uid' => $uid,
-                'name' => $name,
-                'main' => $main,
-                'logoUrl' => $logoUrl,
-                'phone' => $phone,
-                'email' => $email,
-                'username' => $username,
-                'subdomain' => $subdomain,
-                'role' => $role,
-                'payload' => $payload,
-            ]);
+            $expired = $date_create->addDays($expired_trial);
+
+            if($expired < $today){
+                //expired
+                $response = response()->json([
+                    'Success' => '200',
+                    'Message' => 'Akun sudah terdaftar dan berhasil login, Trial Expired.',
+                    'expired_trial' => 1,
+                    'uid' => $uid,
+                    'name' => $name,
+                    'main' => $main,
+                    'logoUrl' => $logoUrl,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'username' => $username,
+                    'subdomain' => $subdomain,
+                    'role' => $role,
+                    'payload' => $payload,
+                    'date_create' => $create,
+                    'expired' => $expired,
+                    'datenow' => $today
+                ]);
+            }else{
+                //login
+                $response = response()->json([
+                    'Success' => '200',
+                    'Message' => 'Akun sudah terdaftar dan berhasil login.',
+                    'expired_trial' => 0,
+                    'uid' => $uid,
+                    'name' => $name,
+                    'main' => $main,
+                    'logoUrl' => $logoUrl,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'username' => $username,
+                    'subdomain' => $subdomain,
+                    'role' => $role,
+                    'payload' => $payload,
+                    'date_create' => $create,
+                    'expired' => $expired,
+                ]);
+            } 
+
+            // $response = response()->json([
+            //     'Success' => '200',
+            //     'Message' => 'Akun sudah terdaftar dan berhasil login.',
+            //     'uid' => $uid,
+            //     'name' => $name,
+            //     'main' => $main,
+            //     'logoUrl' => $logoUrl,
+            //     'phone' => $phone,
+            //     'email' => $email,
+            //     'username' => $username,
+            //     'subdomain' => $subdomain,
+            //     'role' => $role,
+            //     'payload' => $payload,
+            // ]);
         }
         
         return $response;

@@ -3,14 +3,21 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\User;
+use App\Models\AppSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+use Carbon\Carbon;
+
 class LoginController extends Controller
 {
     public function index(Request $request){
+        foreach (AppSetting::all() as $app) {
+            $expired_trial = $app->expired_trial;
+        }
+        $today = Carbon::today()->locale('id');
         $data = $request->json()->all();
 
         $que = [
@@ -26,19 +33,47 @@ class LoginController extends Controller
                         $main = 'true';
                     }
 
-                    $response = response()->json([
-                        'Success' => '200',
-                        'Message' => 'Berhasil Login',
-                        'uid' => $val->id,
-                        'username' => $val->username,
-                        'name' => $val->name,
-                        'phone' => $val->phone,
-                        'email' => $val->email,
-                        'subdomain' => $val->subdomain,
-                        'logoUrl' => $val->logoUrl,
-                        'main' => $main,
-                        'token' => Hash::make($val->email)
-                    ]);
+                    $date_create = $val->created_at;
+                    $expired = $date_create->addDays($expired_trial);
+
+                    if($expired < $today){
+                        //expired
+                        $response = response()->json([
+                            'Success' => '200',
+                            'Message' => 'Berhasil Login, Trial Expired',
+                            'expired_trial' => 1,
+                            'uid' => $val->id,
+                            'username' => $val->username,
+                            'name' => $val->name,
+                            'phone' => $val->phone,
+                            'email' => $val->email,
+                            'subdomain' => $val->subdomain,
+                            'logoUrl' => $val->logoUrl,
+                            'main' => $main,
+                            'token' => Hash::make($val->email),
+                            'date_create' => $val->created_at,
+                            'expired' => $expired,
+                            'datenow' => $today
+                        ]);
+                    }else{
+                        //login
+                        $response = response()->json([
+                            'Success' => '200',
+                            'Message' => 'Berhasil Login',
+                            'expired_trial' => 0,
+                            'uid' => $val->id,
+                            'username' => $val->username,
+                            'name' => $val->name,
+                            'phone' => $val->phone,
+                            'email' => $val->email,
+                            'subdomain' => $val->subdomain,
+                            'logoUrl' => $val->logoUrl,
+                            'main' => $main,
+                            'token' => Hash::make($val->email),
+                            'date_create' => $val->created_at,
+                            'expired' => $expired,
+                        ]);
+                    }   
                 }
             }
             return $response;
