@@ -12,6 +12,8 @@ class Tipe extends Model
     protected $fillable = [
         'name',
         'status',
+        'ukuran',
+        'harga'
     ];
 
 

@@ -34,6 +34,12 @@ class TipeResource extends Resource
                     'Active' => 'Active'
                 ])
                 ->required(),
+                Forms\Components\TextInput::make('ukuran')
+                    ->required()
+                    ->maxLength(50),
+                Forms\Components\TextInput::make('harga')
+                    ->required()
+                    ->maxLength(50),
             ]);
     }
 
@@ -42,6 +48,10 @@ class TipeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ukuran')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('harga')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->numeric()

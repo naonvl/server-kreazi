@@ -14,10 +14,10 @@ class TokoController extends Controller
 		$data = $request->json()->all();
 
 		$que = [
-			'tenant' => $data['uid'],
+			'tenant' => $request->uid,
 		];
 
-		$product = Product::find($que['tenant']);
+		$product = Product::where('tenant', $que['tenant'])->get();
 		$response = response()->json([
 			'product' => $product,
 		]);

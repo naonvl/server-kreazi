@@ -41,12 +41,14 @@ Route::get('/profileUser', [ProfileController::class, 'index'])->middleware(Toke
 
 //api tenant
 Route::get('/tipe', [TokoController::class, 'get_tipe'])->middleware(Token::class);
+Route::get('/allTemplate', [TokoController::class, 'get_template'])->middleware(Token::class);
+Route::post('/addTemplate', [TokoController::class, 'add_template'])->middleware(Token::class);
 
-Route::get('/toko', [TokoController::class, 'index'])->middleware(Token::class);
+Route::post('/toko', [TokoController::class, 'index'])->middleware(Token::class);
 // Route::post('/bukaToko', [TokoController::class, 'buka_toko'])->middleware(Token::class);
 Route::get('/produk', [TokoController::class, 'produk'])->middleware(Token::class);
 Route::post('/addProduk', [TokoController::class, 'add_produk'])->middleware(Token::class);
-Route::post('/addTemplate', [TokoController::class, 'custom_produk'])->middleware(Token::class);
+Route::post('/addCustom', [TokoController::class, 'custom_produk'])->middleware(Token::class);
 Route::post('/editProduk', [TokoController::class, 'update_produk'])->middleware(Token::class);
 
 Route::get('/transaction', [TrasanctionController::class, 'index'])->middleware(Token::class);
