@@ -36,44 +36,38 @@ class LoginController extends Controller
                     $date_create = $val->created_at;
                     $expired = $date_create->addDays($expired_trial);
 
-                    if($expired < $today){
-                        //expired
-                        $response = response()->json([
-                            'Success' => '200',
-                            'Message' => 'Berhasil Login, Trial Expired',
-                            'expired_trial' => 1,
-                            'uid' => $val->id,
-                            'username' => $val->username,
-                            'name' => $val->name,
-                            'phone' => $val->phone,
-                            'email' => $val->email,
-                            'subdomain' => $val->subdomain,
-                            'logoUrl' => $val->logoUrl,
-                            'main' => $main,
-                            'token' => Hash::make($val->email),
-                            'date_create' => $val->created_at,
-                            'expired' => $expired,
-                            'datenow' => $today
-                        ]);
+                    if($val->role == 2){
+                        if($expired < $today){
+                            //expired
+                            $message = 'Berhasil Login, Trial Expired';
+                            $expired_trial = 1;
+                        }else{
+                            //login
+                            $message = 'Berhasil Login';
+                            $expired_trial = 0;
+                        }
                     }else{
-                        //login
-                        $response = response()->json([
-                            'Success' => '200',
-                            'Message' => 'Berhasil Login',
-                            'expired_trial' => 0,
-                            'uid' => $val->id,
-                            'username' => $val->username,
-                            'name' => $val->name,
-                            'phone' => $val->phone,
-                            'email' => $val->email,
-                            'subdomain' => $val->subdomain,
-                            'logoUrl' => $val->logoUrl,
-                            'main' => $main,
-                            'token' => Hash::make($val->email),
-                            'date_create' => $val->created_at,
-                            'expired' => $expired,
-                        ]);
-                    }   
+                        $message = 'Berhasil Login';
+                        $expired_trial = 0;
+                    }
+                    $response = response()->json([
+                        'Success' => '200',
+                        'Message' => $message,
+                        'expired_trial' => $expired_trial,
+                        'uid' => $val->id,
+                        'role' => $val->role,
+                        'username' => $val->username,
+                        'name' => $val->name,
+                        'phone' => $val->phone,
+                        'email' => $val->email,
+                        'subdomain' => $val->subdomain,
+                        'logoUrl' => $val->logoUrl,
+                        'main' => $main,
+                        'token' => Hash::make($val->email),
+                        'date_create' => $val->created_at,
+                        'expired' => $expired,
+                        'datenow' => $today
+                    ]);
                 }
             }
             return $response;
