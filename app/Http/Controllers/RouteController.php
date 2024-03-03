@@ -21,9 +21,9 @@ class RouteController extends Controller
 				'email' => $val->email,
 				'name' => $val->name,
 				'logoURL' => $val->logoUrl,
-            ]
-        };
-        return response()->json($user);
+            ];
+        }
+        return response()->json($subdomainRoutes);
 		// foreach($user as $val){
 		// 	$main = 'false';
 		// 	if($val->main == 1){
