@@ -11,7 +11,18 @@ class RouteController extends Controller
 
 		// $subdomain = $data['subdomain'];
 		$ada = 0;
-		$user = User::all();
+		$users = User::all();
+        $subdomainRoutes =[];
+        foreach ($users as $key => $user) {
+            $subdomainRoutes[] = [
+				'id' => $val->id,
+				'tenant_id' => $val->subdomain,
+				'main' => $main,
+				'email' => $val->email,
+				'name' => $val->name,
+				'logoURL' => $val->logoUrl,
+            ]
+        }
         return response()->json($user);
 		// foreach($user as $val){
 		// 	$main = 'false';
@@ -19,14 +30,14 @@ class RouteController extends Controller
 		// 		$main = 'true';
 		// 	}
 		// 	$ada = 1;
-		// 	$response = response()->json([
-		// 		'id' => $val->id,
-		// 		'tenant_id' => $val->subdomain,
-		// 		'main' => $main,
-		// 		'email' => $val->email,
-		// 		'name' => $val->name,
-		// 		'logoURL' => $val->logoUrl,
-		// 	]);
+			// $response = response()->json([
+			// 	'id' => $val->id,
+			// 	'tenant_id' => $val->subdomain,
+			// 	'main' => $main,
+			// 	'email' => $val->email,
+			// 	'name' => $val->name,
+			// 	'logoURL' => $val->logoUrl,
+			// ]);
 		// 	return $response;
 		// }
 		// if($ada == 0){
