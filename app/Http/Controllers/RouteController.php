@@ -22,7 +22,7 @@ class RouteController extends Controller
 				'name' => $val->name,
 				'logoURL' => $val->logoUrl,
             ]
-        }
+        };
         return response()->json($user);
 		// foreach($user as $val){
 		// 	$main = 'false';
