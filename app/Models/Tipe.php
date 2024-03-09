@@ -14,7 +14,6 @@ class Tipe extends Model
         'status'
     ];
 
-
     public $timestamps = true;
 
     const CREATED_AT = 'create_date';

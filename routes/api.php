@@ -11,6 +11,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\FirebaseController;
 
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TrasanctionController;
 
 use App\Http\Middleware\Token;
@@ -67,9 +68,12 @@ Route::post('/withdraw', [TrasanctionController::class, 'withdraw'])->middleware
 Route::post('/bayarSub', [TrasanctionController::class, 'bayar_subscribe'])->middleware(Token::class);
 
 //api customer
-Route::post('/order', [OrderController::class, 'index'])->middleware(Token::class);
-Route::post('/cart', [OrderController::class, 'add_cart'])->middleware(Token::class);
-Route::post('/delete_cart', [OrderController::class, 'delete_cart'])->middleware(Token::class);
+Route::post('/order', [OrderController::class, 'index'])->middleware(Token::class);             //buat bikin order dan cart pertama
+Route::post('/addCart', [OrderController::class, 'add_cart'])->middleware(Token::class);        //buat add cart ke orderan yg sudah ada
+Route::post('/getOrder', [OrderController::class, 'get_order'])->middleware(Token::class);      //buat ambil order yang dibuat oleh customer
+Route::post('/deleteCart', [OrderController::class, 'delete_cart'])->middleware(Token::class);  //buat delete cart di list order
+Route::post('/deleteOrder', [OrderController::class, 'delete_order'])->middleware(Token::class);//buat delete order
+
 Route::post('/payment', [OrderController::class, 'payment'])->middleware(Token::class);
 Route::post('/paymentDuitku', [OrderController::class, 'payment_duitku'])->middleware(Token::class);
 Route::post('/paymentMidtrans', [OrderController::class, 'payment_midtrans'])->middleware(Token::class);

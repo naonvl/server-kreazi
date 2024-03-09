@@ -4,23 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderDetail extends Model
 {
-    protected $table = 'order';
-    protected $primaryKey = 'order_id';
+    protected $table = 'order_detail';
+    protected $primaryKey = 'detail_id';
 
     public $timestamps = true;
 
     protected $fillable = [
         'order_id',
-        'cust_id',
+        'product_id',
+        'mitra_id',
         'qty',
         'price',
         'discount',
         'total',
-        'ongkir',
-        'resi',
-        'ekspedisi_id',
+        'note',
         'status',
     ];
 
