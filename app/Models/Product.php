@@ -10,16 +10,20 @@ class Product extends Model
     protected $primaryKey = 'product_id';
 
     protected $fillable = [
+        'is_dropship',
         'name',
         'tipe',
-        'price',
-        'discount',
+        'ukuran',
+        'harga_beli',
+        'harga_jual',
+        'discount_beli',
+        'discount_jual',
         'description',
         'qty',
         'status',
-        'tenant',
+        'mitra',
         'customer',
-        'gambarUrl',
+        'id_template',
     ];
 
 

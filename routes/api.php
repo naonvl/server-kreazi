@@ -39,17 +39,27 @@ Route::post('/register', [RegisterController::class, 'index']);
 Route::post('/updateUser', [UpdateUserController::class, 'index'])->middleware('token');
 Route::get('/profileUser', [ProfileController::class, 'index'])->middleware(Token::class);
 
-//api tenant
+//api admin & mitra
 Route::get('/tipe', [TokoController::class, 'get_tipe'])->middleware(Token::class);
+Route::post('/addTipe', [TokoController::class, 'add_tipe'])->middleware(Token::class);
+Route::get('/dropship', [TokoController::class, 'get_dropship'])->middleware(Token::class);
+Route::post('/addDropship', [TokoController::class, 'add_dropship'])->middleware(Token::class);
+Route::post('/editDropship', [TokoController::class, 'update_dropship'])->middleware(Token::class);
+
 Route::get('/allTemplate', [TokoController::class, 'get_template'])->middleware(Token::class);
 Route::post('/addTemplate', [TokoController::class, 'add_template'])->middleware(Token::class);
+Route::post('/editTemplate', [TokoController::class, 'update_template'])->middleware(Token::class);
 
-Route::post('/toko', [TokoController::class, 'index'])->middleware(Token::class);
+Route::post('/addProduk_mitra', [TokoController::class, 'add_produk_mitra'])->middleware(Token::class);
+Route::post('/editProduk_mitra', [TokoController::class, 'edit_produk_mitra'])->middleware(Token::class);
+Route::post('/produkMitra', [TokoController::class, 'produkMitra'])->middleware(Token::class);
+
+// Route::post('/toko', [TokoController::class, 'index'])->middleware(Token::class);
 // Route::post('/bukaToko', [TokoController::class, 'buka_toko'])->middleware(Token::class);
-Route::get('/produk', [TokoController::class, 'produk'])->middleware(Token::class);
-Route::post('/addProduk', [TokoController::class, 'add_produk'])->middleware(Token::class);
-Route::post('/addCustom', [TokoController::class, 'custom_produk'])->middleware(Token::class);
-Route::post('/editProduk', [TokoController::class, 'update_produk'])->middleware(Token::class);
+// Route::get('/produk', [TokoController::class, 'produk'])->middleware(Token::class);
+// Route::post('/addProduk', [TokoController::class, 'add_produk'])->middleware(Token::class);
+Route::post('/addCustom', [TokoController::class, 'add_produk_custom'])->middleware(Token::class);
+Route::post('/editCustom', [TokoController::class, 'update_produk_custom'])->middleware(Token::class);
 
 Route::get('/transaction', [TrasanctionController::class, 'index'])->middleware(Token::class);
 Route::post('/withdraw', [TrasanctionController::class, 'withdraw'])->middleware(Token::class);

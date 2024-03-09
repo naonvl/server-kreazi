@@ -10,9 +10,12 @@ class Template extends Model
     protected $primaryKey = 'template_id';
 
     protected $fillable = [
-        'image',
-        'status',
-        'user'
+        'name',
+        'tipe',
+        'template',
+        'thumbnail',
+        'user',
+        'status'
     ];
 
 
