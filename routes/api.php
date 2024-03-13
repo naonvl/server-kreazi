@@ -10,6 +10,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\FirebaseController;
 
+use App\Http\Controllers\AppsController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TrasanctionController;
@@ -66,6 +67,22 @@ Route::get('/transaction', [TrasanctionController::class, 'index'])->middleware(
 Route::post('/withdraw', [TrasanctionController::class, 'withdraw'])->middleware(Token::class);
 
 Route::post('/bayarSub', [TrasanctionController::class, 'bayar_subscribe'])->middleware(Token::class);
+
+//api set cms home
+Route::get('/imageBanner', [AppsController::class, 'index'])->middleware(Token::class);
+Route::get('/productBanner', [AppsController::class, 'product'])->middleware(Token::class);
+Route::get('/omichannel', [AppsController::class, 'omichannel'])->middleware(Token::class);
+Route::get('/paymentMethod', [AppsController::class, 'payment_method'])->middleware(Token::class);
+
+Route::post('/add_imageBanner', [AppsController::class, 'add_imageBanner'])->middleware(Token::class);
+Route::post('/add_productBanner', [AppsController::class, 'add_product'])->middleware(Token::class);
+Route::post('/add_omichannel', [AppsController::class, 'add_omichannel'])->middleware(Token::class);
+Route::post('/add_paymentMethod', [AppsController::class, 'add_payment_method'])->middleware(Token::class);
+
+Route::post('/delete_imageBanner', [AppsController::class, 'delete_imageBanner'])->middleware(Token::class);
+Route::post('/delete_productBanner', [AppsController::class, 'delete_product'])->middleware(Token::class);
+Route::post('/delete_omichannel', [AppsController::class, 'delete_omichannel'])->middleware(Token::class);
+Route::post('/delete_paymentMethod', [AppsController::class, 'delete_payment_method'])->middleware(Token::class);
 
 //api customer
 Route::post('/order', [OrderController::class, 'index'])->middleware(Token::class);             //buat bikin order dan cart pertama

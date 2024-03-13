@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 09 Mar 2024 pada 11.53
+-- Waktu pembuatan: 13 Mar 2024 pada 12.46
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -99,6 +99,46 @@ CREATE TABLE `finance` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `image_banner`
+--
+
+CREATE TABLE `image_banner` (
+  `id_image` int(11) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `image_banner`
+--
+
+INSERT INTO `image_banner` (`id_image`, `url`, `create_date`, `modified_date`) VALUES
+(1, 'http://127.0.0.1:8000/uploads/home/1-imageBanner_1710327124.jpg', '2024-03-13 17:52:04', '2024-03-13 17:52:04');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `omnichanel`
+--
+
+CREATE TABLE `omnichanel` (
+  `id_omnichanel` int(11) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `create_date` datetime NOT NULL,
+  `modified_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `omnichanel`
+--
+
+INSERT INTO `omnichanel` (`id_omnichanel`, `logo`, `create_date`, `modified_date`) VALUES
+(1, 'http://127.0.0.1:8000/uploads/home/1-omnichannel1710327975.jpg', '2024-03-13 18:06:15', '2024-03-13 18:06:15');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `order`
 --
 
@@ -141,6 +181,26 @@ CREATE TABLE `order_detail` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `payment_method`
+--
+
+CREATE TABLE `payment_method` (
+  `id_payment` int(11) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `payment_method`
+--
+
+INSERT INTO `payment_method` (`id_payment`, `logo`, `create_date`, `modified_date`) VALUES
+(1, 'http://127.0.0.1:8000/uploads/home/1-paymentMethod1710328062.jpg', '2024-03-13 18:07:42', '2024-03-13 18:07:42');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `product`
 --
 
@@ -172,6 +232,26 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `is_dropship`, `dropship_id`, `mitra`, `customer`, `name`, `tipe`, `ukuran`, `harga_jual`, `harga_beli`, `discount_jual`, `discount_beli`, `description`, `id_template`, `qty`, `status`, `create_date`, `modified_date`) VALUES
 (7, 1, 0, 0, 0, 'Dropship 1', 2, 'A4', 0, 25000, 0, 0, NULL, 1, 0, 'Draft', '2024-03-09 13:02:03', '2024-03-09 13:58:44'),
 (8, 0, 0, 7, 0, 'Dropship 1', 2, 'A4', 70000, 0, 0, 0, 'ini produk mitra 7 test', 1, 10, 'Active', '2024-03-09 14:52:37', '2024-03-09 14:59:20');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `product_home`
+--
+
+CREATE TABLE `product_home` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `product_home`
+--
+
+INSERT INTO `product_home` (`id`, `id_product`, `create_date`, `modified_date`) VALUES
+(1, 7, '2024-03-13 17:55:21', '2024-03-13 17:55:21');
 
 -- --------------------------------------------------------
 
@@ -283,6 +363,18 @@ ALTER TABLE `finance`
   ADD PRIMARY KEY (`finance_id`);
 
 --
+-- Indeks untuk tabel `image_banner`
+--
+ALTER TABLE `image_banner`
+  ADD PRIMARY KEY (`id_image`);
+
+--
+-- Indeks untuk tabel `omnichanel`
+--
+ALTER TABLE `omnichanel`
+  ADD PRIMARY KEY (`id_omnichanel`);
+
+--
 -- Indeks untuk tabel `order`
 --
 ALTER TABLE `order`
@@ -295,10 +387,22 @@ ALTER TABLE `order_detail`
   ADD PRIMARY KEY (`detail_id`);
 
 --
+-- Indeks untuk tabel `payment_method`
+--
+ALTER TABLE `payment_method`
+  ADD PRIMARY KEY (`id_payment`);
+
+--
 -- Indeks untuk tabel `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indeks untuk tabel `product_home`
+--
+ALTER TABLE `product_home`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `template`
@@ -347,6 +451,18 @@ ALTER TABLE `finance`
   MODIFY `finance_id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `image_banner`
+--
+ALTER TABLE `image_banner`
+  MODIFY `id_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `omnichanel`
+--
+ALTER TABLE `omnichanel`
+  MODIFY `id_omnichanel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `order`
 --
 ALTER TABLE `order`
@@ -359,10 +475,22 @@ ALTER TABLE `order_detail`
   MODIFY `detail_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT untuk tabel `payment_method`
+--
+ALTER TABLE `payment_method`
+  MODIFY `id_payment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `product_home`
+--
+ALTER TABLE `product_home`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `template`
