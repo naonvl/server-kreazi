@@ -47,11 +47,14 @@ class OrderResource extends Resource
                     ->maxLength(100),
                 Forms\Components\TextInput::make('ekspedisi_id')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
                 Forms\Components\TextInput::make('status')
                     ->required()
-                    ->numeric(),
+                    ->maxLength(20),
                 Forms\Components\DateTimePicker::make('create_date')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('modified_date')
                     ->required(),
             ]);
     }
@@ -84,9 +87,11 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->numeric()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('create_date')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('modified_date')
                     ->dateTime()
                     ->sortable(),
             ])

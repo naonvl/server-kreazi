@@ -13,6 +13,8 @@ class RegisterController extends Controller
     public function index(Request $request){
         $data = $request->json()->all();
 
+        //add logic role
+        
         $que = [
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

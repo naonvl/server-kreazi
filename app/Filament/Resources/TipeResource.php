@@ -12,8 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
 
 class TipeResource extends Resource
 {
@@ -28,18 +26,13 @@ class TipeResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50),
-                Select::make('status')
-                ->options([
-                    'Draft' => 'Draft',
-                    'Active' => 'Active'
-                ])
-                ->required(),
-                Forms\Components\TextInput::make('ukuran')
+                Forms\Components\TextInput::make('status')
                     ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('harga')
-                    ->required()
-                    ->maxLength(50),
+                    ->maxLength(10),
+                Forms\Components\DateTimePicker::make('create_date')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('modified_date')
+                    ->required(),
             ]);
     }
 
@@ -49,12 +42,13 @@ class TipeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('ukuran')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('harga')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->numeric()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('create_date')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('modified_date')
+                    ->dateTime()
                     ->sortable(),
             ])
             ->filters([

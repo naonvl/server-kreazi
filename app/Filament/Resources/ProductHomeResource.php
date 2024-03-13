@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TemplateResource\Pages;
-use App\Filament\Resources\TemplateResource\RelationManagers;
-use App\Models\Template;
+use App\Filament\Resources\ProductHomeResource\Pages;
+use App\Filament\Resources\ProductHomeResource\RelationManagers;
+use App\Models\ProductHome;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TemplateResource extends Resource
+class ProductHomeResource extends Resource
 {
-    protected static ?string $model = Template::class;
+    protected static ?string $model = ProductHome::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,23 +23,9 @@ class TemplateResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(100),
-                Forms\Components\TextInput::make('tipe')
+                Forms\Components\TextInput::make('id_product')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('template')
-                    ->required(),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->required()
-                    ->maxLength(500),
-                Forms\Components\TextInput::make('user')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(11),
                 Forms\Components\DateTimePicker::make('create_date')
                     ->required(),
                 Forms\Components\DateTimePicker::make('modified_date')
@@ -51,18 +37,9 @@ class TemplateResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tipe')
+                Tables\Columns\TextColumn::make('id_product')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('thumbnail')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('create_date')
                     ->dateTime()
                     ->sortable(),
@@ -93,9 +70,9 @@ class TemplateResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTemplates::route('/'),
-            'create' => Pages\CreateTemplate::route('/create'),
-            'edit' => Pages\EditTemplate::route('/{record}/edit'),
+            'index' => Pages\ListProductHomes::route('/'),
+            'create' => Pages\CreateProductHome::route('/create'),
+            'edit' => Pages\EditProductHome::route('/{record}/edit'),
         ];
     }
 }
