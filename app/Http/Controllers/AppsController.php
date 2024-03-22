@@ -8,6 +8,8 @@ use App\Models\PaymentMethod;
 use App\Models\ProductHome;
 use App\Models\Product;
 use App\Models\Template;
+use App\Models\ContentDetail;
+use App\Models\ContentRegister;
 use Illuminate\Http\Request;
 
 class AppsController extends Controller
@@ -52,6 +54,32 @@ class AppsController extends Controller
 	public function payment_method(){
 		return response()->json([
 			'payment_method' => PaymentMethod::all(),
+			200
+		]);
+	}
+
+	public function content_register(){
+		$content_data = [];
+		$content_array = array();
+
+		$detail_data = [];
+		$detail_array = array();
+
+		foreach(ContentRegister::all() as $val){
+			$content_data['id'] = $val->id_content;
+			$content_data['harga_subs'] = $val->harga_subs;
+			foreach(ContentDetail::where('id_content', $val->id_content)->get() as $key){
+				if($val->id_content == $key->id_content){
+					$detail_data['benefit'] = $key->benefit;
+					array_push($detail_array, $detail_data);
+				}
+			}
+			$content_data['benefit'] = $detail_array;
+			array_push($content_array, $content_data);
+		}
+		return response()->json([
+			// 'product_banner' => ProductHome::all(),
+			'content' => $content_array,
 			200
 		]);
 	}

@@ -69,10 +69,11 @@ Route::post('/withdraw', [TrasanctionController::class, 'withdraw'])->middleware
 Route::post('/bayarSub', [TrasanctionController::class, 'bayar_subscribe'])->middleware(Token::class);
 
 //api set cms home
-Route::get('/imageBanner', [AppsController::class, 'index'])->middleware(Token::class);
-Route::get('/productBanner', [AppsController::class, 'product'])->middleware(Token::class);
-Route::get('/omichannel', [AppsController::class, 'omichannel'])->middleware(Token::class);
-Route::get('/paymentMethod', [AppsController::class, 'payment_method'])->middleware(Token::class);
+Route::get('/imageBanner', [AppsController::class, 'index']);
+Route::get('/productBanner', [AppsController::class, 'product']);
+Route::get('/omichannel', [AppsController::class, 'omichannel']);
+Route::get('/paymentMethod', [AppsController::class, 'payment_method']);
+Route::get('/ContentRegister', [AppsController::class, 'content_register']);
 
 Route::post('/add_imageBanner', [AppsController::class, 'add_imageBanner'])->middleware(Token::class);
 Route::post('/add_productBanner', [AppsController::class, 'add_product'])->middleware(Token::class);
