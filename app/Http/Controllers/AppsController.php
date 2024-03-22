@@ -39,18 +39,18 @@ class AppsController extends Controller
 		}
 		return response()->json([
 			// 'product_banner' => ProductHome::all(),
-			'product_banner' => $product_array,
+			'data' => $product_array,
 			200
 		]);
 	}
-   
+
    	public function omichannel(){
 		return response()->json([
 			'omichannel' => Omnichanel::all(),
 			200
 		]);
    	}
-   
+
 	public function payment_method(){
 		return response()->json([
 			'payment_method' => PaymentMethod::all(),
@@ -198,7 +198,7 @@ class AppsController extends Controller
 		}
 		return $response;
 	}
-	
+
 	public function delete_imageBanner(Request $request){
 		$delete = ImageBanner::find($request->id_image);
 		if($delete->delete()){
