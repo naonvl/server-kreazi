@@ -16,7 +16,7 @@ class AppsController extends Controller
 {
 	public function index(){
 		return response()->json([
-			'image_banner' => ImageBanner::all(),
+			'data' => ImageBanner::all(),
 			200
 		]);
 	}
