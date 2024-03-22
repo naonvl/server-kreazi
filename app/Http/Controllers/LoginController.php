@@ -51,8 +51,8 @@ class LoginController extends Controller
                         $expired_trial = 0;
                     }
                     $response = response()->json([
-                        'Success' => '200',
-                        'Message' => $message,
+                        'success' => '200',
+                        'message' => $message,
                         'data' =>[
                             'expired_trial' => $expired_trial,
                             'uid' => $val->id,
@@ -74,8 +74,8 @@ class LoginController extends Controller
             return $response;
         }else{
             return response()->json([
-                'Success' => '0',
-                'Message' => 'Password / Username Salah!'
+                'success' => '0',
+                'message' => 'Password / Username Salah!'
             ]);
         }
     }

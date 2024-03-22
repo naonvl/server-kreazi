@@ -12,7 +12,7 @@ class TrasanctionController extends Controller
 		$data = $request->json()->all();
 
 		$response = response()->json([
-			'Order' => Order::find($data['uid']),
+			'order' => Order::find($data['uid']),
 		]);
 
 		return $response;

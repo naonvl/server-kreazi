@@ -14,7 +14,7 @@ class AppsController extends Controller
 {
 	public function index(){
 		return response()->json([
-			'Image_banner' => ImageBanner::all(),
+			'image_banner' => ImageBanner::all(),
 			200
 		]);
 	}
@@ -74,14 +74,14 @@ class AppsController extends Controller
 			'url' => url("uploads/home/".$nama_file),
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Image Banner Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Image Banner Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Image Banner Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Image Banner Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -93,14 +93,14 @@ class AppsController extends Controller
 			'id_product' => $request->id_product,
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Product Berhasil ditambahkan ke homepage.',
+				'success' => '200',
+				'message' => 'Product Berhasil ditambahkan ke homepage.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Product Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Product Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -125,14 +125,14 @@ class AppsController extends Controller
 			'logo' => url("uploads/home/".$nama_file),
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Omnichanel Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Omnichanel Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Omnichanel Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Omnichanel Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -157,14 +157,14 @@ class AppsController extends Controller
 			'logo' => url("uploads/home/".$nama_file),
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Payment Method Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Payment Method Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Payment Method Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Payment Method Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -175,14 +175,14 @@ class AppsController extends Controller
 		$delete = ImageBanner::find($request->id_image);
 		if($delete->delete()){
 			return response()->json([
-				'Success' => '200',
-				'Message' => 'Image Banner berhasil di dihapus',
+				'success' => '200',
+				'message' => 'Image Banner berhasil di dihapus',
 				200
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Image Banner gagal di dihapus',
+				'success' => '500',
+				'message' => 'Image Banner gagal di dihapus',
 				500
 			]);
 		}
@@ -192,14 +192,14 @@ class AppsController extends Controller
 		$delete = ProductHome::find($request->id);
 		if($delete->delete()){
 			return response()->json([
-				'Success' => '200',
-				'Message' => 'Product berhasil di dihapus dari home',
+				'success' => '200',
+				'message' => 'Product berhasil di dihapus dari home',
 				200
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Product gagal di dihapus',
+				'success' => '500',
+				'message' => 'Product gagal di dihapus',
 				500
 			]);
 		}
@@ -209,14 +209,14 @@ class AppsController extends Controller
 		$delete = Omnichanel::find($request->id_omnichanel);
 		if($delete->delete()){
 			return response()->json([
-				'Success' => '200',
-				'Message' => 'Omnichanel di dihapus dari home',
+				'success' => '200',
+				'message' => 'Omnichanel di dihapus dari home',
 				200
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Omnichanel gagal di dihapus',
+				'success' => '500',
+				'message' => 'Omnichanel gagal di dihapus',
 				500
 			]);
 		}
@@ -226,14 +226,14 @@ class AppsController extends Controller
 		$delete = PaymentMethod::find($request->id_payment);
 		if($delete->delete()){
 			return response()->json([
-				'Success' => '200',
-				'Message' => 'Payment Method di dihapus dari home',
+				'success' => '200',
+				'message' => 'Payment Method di dihapus dari home',
 				200
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Payment Method gagal di dihapus',
+				'success' => '500',
+				'message' => 'Payment Method gagal di dihapus',
 				500
 			]);
 		}

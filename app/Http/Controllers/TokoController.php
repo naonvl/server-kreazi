@@ -55,27 +55,27 @@ class TokoController extends Controller
 
 			if($success == 1){
 				$response = response()->json([
-					'Success' => '200',
-					'Message' => 'Tipe Berhasil Ditambahkan.',
+					'success' => '200',
+					'message' => 'Tipe Berhasil Ditambahkan.',
 					200
 				]);
 			}elseif($success == 0){
 				$response = response()->json([
-					'Success' => '500',
-					'Message' => 'Tipe Gagal Ditambahkan.',
+					'success' => '500',
+					'message' => 'Tipe Gagal Ditambahkan.',
 					500
 				]);
 			}else{
 				$response = response()->json([
-					'Success' => '404',
-					'Message' => 'ERROR!.',
+					'success' => '404',
+					'message' => 'ERROR!.',
 					404
 				]);
 			}
 		}else{
 			$response = response()->json([
-				'Success' => '0',
-				'Message' => 'Tipe sudah ada.',
+				'success' => '0',
+				'message' => 'Tipe sudah ada.',
 			]);
 		}
 		return $response;
@@ -104,14 +104,14 @@ class TokoController extends Controller
 
 		if(Product::where('is_dropship', 1)->where('name', $request->nama)->get()){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Produk Dropship Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Produk Dropship Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Produk Dropship Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Produk Dropship Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -140,21 +140,21 @@ class TokoController extends Controller
 			$product = Product::findorfail($dropship_id);
 			if($product->update($que)){
 				return response()->json([
-					'Success' => '200',
-					'Message' => 'Data Dropship Berhasil di Update',
+					'success' => '200',
+					'message' => 'Data Dropship Berhasil di Update',
 					200
 				]);
 			}else{
 				return response()->json([
-					'Success' => '500',
-					'Message' => 'Update data gagal!',
+					'success' => '500',
+					'message' => 'Update data gagal!',
 					500
 				]);
 			}
         }else{
             return response()->json([
-                'Success' => '500',
-                'Message' => 'Update data gagal!',
+                'success' => '500',
+                'message' => 'Update data gagal!',
 				500
             ]);
         }
@@ -188,14 +188,14 @@ class TokoController extends Controller
 			'status' => $request->status,
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Template Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Template Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Template Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Template Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -228,13 +228,13 @@ class TokoController extends Controller
 		$template = Template::findorfail($template_id);
         if($template->update($que)){
             return response()->json([
-                'Success' => '200',
-                'Message' => 'Data Dropship Berhasil di Update'
+                'success' => '200',
+                'message' => 'Data Dropship Berhasil di Update'
             ]);
         }else{
             return response()->json([
-                'Success' => '500',
-                'Message' => 'Update data gagal!',
+                'success' => '500',
+                'message' => 'Update data gagal!',
 				500
             ]);
         }
@@ -280,14 +280,14 @@ class TokoController extends Controller
 			'status' => $request->status,
 		])){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Produk Mitra Berhasil ditambahkan.',
+				'success' => '200',
+				'message' => 'Produk Mitra Berhasil ditambahkan.',
 				200
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Produk Mitra Gagal ditambahkan.',
+				'success' => '500',
+				'message' => 'Produk Mitra Gagal ditambahkan.',
 				500
 			]);
 		}
@@ -323,13 +323,13 @@ class TokoController extends Controller
 		$product = Product::findorfail($product_id);
         if($product->update($que)){
             return response()->json([
-                'Success' => '200',
-                'Message' => 'Data Dropship Berhasil di Update'
+                'success' => '200',
+                'message' => 'Data Dropship Berhasil di Update'
             ]);
         }else{
             return response()->json([
-                'Success' => '500',
-                'Message' => 'Update data gagal!',
+                'success' => '500',
+                'message' => 'Update data gagal!',
 				500
             ]);
         }

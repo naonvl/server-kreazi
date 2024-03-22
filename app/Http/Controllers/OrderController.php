@@ -50,20 +50,20 @@ class OrderController extends Controller
 
 		if($success == 1){
 			$response = response()->json([
-				'Success' => '200',
-				'Message' => 'Order Berhasil dibuat.',
+				'success' => '200',
+				'message' => 'Order Berhasil dibuat.',
 				200
 			]);
 		}elseif($success == 0){
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Order Gagal dibuat!',
+				'success' => '500',
+				'message' => 'Order Gagal dibuat!',
 				500
 			]);
 		}else{
 			$response = response()->json([
-				'Success' => '404',
-				'Message' => 'Error!',
+				'success' => '404',
+				'message' => 'Error!',
 				404
 			]);
 		}
@@ -110,29 +110,29 @@ class OrderController extends Controller
 				$order = Order::findorfail($order_id);
 				if($order->update($que)){
 					return response()->json([
-						'Success' => '200',
-						'Message' => 'Cart berhasil di tambahkan',
+						'success' => '200',
+						'message' => 'Cart berhasil di tambahkan',
 						200
 					]);
 				}else{
 					return response()->json([
-						'Success' => '500',
-						'Message' => 'Data Order gagal diperbarui',
+						'success' => '500',
+						'message' => 'Data Order gagal diperbarui',
 						500
 					]);
 				}
 			}else{
 				return response()->json([
-					'Success' => '500',
-					'Message' => 'Cart gagal ditambahkan',
+					'success' => '500',
+					'message' => 'Cart gagal ditambahkan',
 					500
 				]);
 			}
 
 		}else{
 			$response = response()->json([
-				'Success' => '500',
-				'Message' => 'Cart Order tidak ditemukan!',
+				'success' => '500',
+				'message' => 'Cart Order tidak ditemukan!',
 				500
 			]);
 		}
@@ -147,13 +147,18 @@ class OrderController extends Controller
 
 		if($id_order != 0){
 			return response()->json([
-				'order' => Order::where('cust_id', $request->cust_id)->get(),
-				'order_detail' => OrderDetail::where('order_id', $id_order)->get()
+				'success' => '500',
+				'message' => 'Order ditemukan',
+				'data' =>[
+					'order' => Order::where('cust_id', $request->cust_id)->get(),
+					'order_detail' => OrderDetail::where('order_id', $id_order)->get()
+				]
+				
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Order tidak ditemukan!',
+				'success' => '500',
+				'message' => 'Order tidak ditemukan!',
 				500
 			]);
 		}
@@ -195,29 +200,29 @@ class OrderController extends Controller
 				$order_detail = OrderDetail::findorfail($orderDetail_id);
 				if($order_detail->delete()){
 					return response()->json([
-						'Success' => '200',
-						'Message' => 'Cart berhasil di dihapus',
+						'success' => '200',
+						'message' => 'Cart berhasil di dihapus',
 						200
 					]);
 				}else{
 					return response()->json([
-						'Success' => '500',
-						'Message' => 'Cart gagal di dihapus',
+						'success' => '500',
+						'message' => 'Cart gagal di dihapus',
 						500
 					]);
 				}
 			}else{
 				return response()->json([
-					'Success' => '500',
-					'Message' => 'Order gagal di update dan Cart gagal di hapus',
+					'success' => '500',
+					'message' => 'Order gagal di update dan Cart gagal di hapus',
 					500
 				]);
 			}
 
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'data cart tidak ada!',
+				'success' => '500',
+				'message' => 'data cart tidak ada!',
 				500
 			]);
 		}
@@ -231,14 +236,14 @@ class OrderController extends Controller
 		$order = Order::find($request->order_id);
 		if($order->delete()){
 			return response()->json([
-				'Success' => '200',
-				'Message' => 'Order berhasil di dihapus',
+				'success' => '200',
+				'message' => 'Order berhasil di dihapus',
 				200
 			]);
 		}else{
 			return response()->json([
-				'Success' => '500',
-				'Message' => 'Order gagal di dihapus',
+				'success' => '500',
+				'message' => 'Order gagal di dihapus',
 				500
 			]);
 		}

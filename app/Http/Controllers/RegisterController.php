@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\User;
+use App\Models\AppSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,12 +42,22 @@ class RegisterController extends Controller
                     if($val->main == 1){
                         $main = 'true';
                     }
+                    foreach (AppSetting::all() as $app) {
+                        $expired_trial = $app->expired_trial;
+                    }
+                   
+                    $today = Carbon::today()->locale('id');
+                    $date_create = $val->created_at;
+                    $expired = $date_create->addDays($expired_trial);
+                    $expired_trial = 0;
 
                     $response = response()->json([
-                        'Success' => '200',
-                        'Message' => 'Berhasil Didaftarkan',
+                        'success' => '200',
+                        'message' => 'Berhasil Didaftarkan',
                         'data' => [
+                            'expired_trial' => $expired_trial,
                             'uid' => $val->id,
+                            'role' => $val->role,
                             'username' => $val->username,
                             'name' => $val->name,
                             'phone' => $val->phone,
@@ -54,6 +65,10 @@ class RegisterController extends Controller
                             'subdomain' => $val->subdomain,
                             'logoUrl' => $val->logoUrl,
                             'main' => $main,
+                            'token' => Hash::make($val->email),
+                            'date_create' => $val->created_at,
+                            'expired' => $expired,
+                            'datenow' => $today
                         ]
                     ]);
                 }
@@ -61,8 +76,8 @@ class RegisterController extends Controller
             return $response;
         }else{
             return response()->json([
-                'Success' => '0',
-                'Message' => 'Gagal Registrasi!'
+                'success' => '0',
+                'message' => 'Gagal Registrasi!'
             ]);
         }
     }

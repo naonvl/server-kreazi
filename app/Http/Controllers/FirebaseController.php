@@ -115,8 +115,8 @@ class FirebaseController extends Controller
             if($expired < $today){
                 //expired
                 $response = response()->json([
-                    'Success' => '200',
-                    'Message' => 'Akun sudah terdaftar dan berhasil login, Trial Expired.',
+                    'success' => '200',
+                    'message' => 'Akun sudah terdaftar dan berhasil login, Trial Expired.',
                     'data' => [
                         'expired_trial' => 1,
                         'uid' => $uid,
@@ -137,8 +137,8 @@ class FirebaseController extends Controller
             }else{
                 //login
                 $response = response()->json([
-                    'Success' => '200',
-                    'Message' => 'Akun sudah terdaftar dan berhasil login.',
+                    'success' => '200',
+                    'message' => 'Akun sudah terdaftar dan berhasil login.',
                     'data' => [
                         'expired_trial' => 0,
                         'uid' => $uid,

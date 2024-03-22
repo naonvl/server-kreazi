@@ -28,7 +28,7 @@ class RouteController extends Controller
 		}
 		if($ada == 0){
 			return $response = response()->json([
-				'Message'=> 'Not Found',
+				'sessage'=> 'Not Found',
 				'subdomain' => $request->subdomain,
 				'request' => $request,
 			]);
