@@ -27,10 +27,11 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-        Livewire::setUpdateRoute(function ($handle) {
-            $url =  'laravel/public/livewire/update';
-            return Route::post($url, $handle);
-        });
+        
+        // Livewire::setUpdateRoute(function ($handle) {
+        //     $url =  'laravel/public/livewire/update';
+        //     return Route::post($url, $handle);
+        // });
 
         $this->routes(function () {
             Route::middleware('api')
