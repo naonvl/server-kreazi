@@ -16,11 +16,13 @@ class RegisterController extends Controller
         //add logic role
         
         $que = [
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'phone' => $data['phone'],
+            'role' => $request->role,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'name' => $request->name,
+            'username' => $request->username,
+            'phone' => $request->whatsapp,
+            'kota' => $request->kota,
             'logoUrl' => "",
         ];
 
@@ -43,14 +45,16 @@ class RegisterController extends Controller
                     $response = response()->json([
                         'Success' => '200',
                         'Message' => 'Berhasil Didaftarkan',
-                        'uid' => $val->id,
-                        'username' => $val->username,
-                        'name' => $val->name,
-                        'phone' => $val->phone,
-                        'email' => $val->email,
-                        'subdomain' => $val->subdomain,
-                        'logoUrl' => $val->logoUrl,
-                        'main' => $main,
+                        'data' => [
+                            'uid' => $val->id,
+                            'username' => $val->username,
+                            'name' => $val->name,
+                            'phone' => $val->phone,
+                            'email' => $val->email,
+                            'subdomain' => $val->subdomain,
+                            'logoUrl' => $val->logoUrl,
+                            'main' => $main,
+                        ]
                     ]);
                 }
             }

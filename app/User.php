@@ -28,6 +28,7 @@ class User extends Authenticatable
         'create_date', 
         'modified_date',
         'logoUrl',
+        'kota',
     ];
 
     /**

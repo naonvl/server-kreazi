@@ -117,39 +117,43 @@ class FirebaseController extends Controller
                 $response = response()->json([
                     'Success' => '200',
                     'Message' => 'Akun sudah terdaftar dan berhasil login, Trial Expired.',
-                    'expired_trial' => 1,
-                    'uid' => $uid,
-                    'name' => $name,
-                    'main' => $main,
-                    'logoUrl' => $logoUrl,
-                    'phone' => $phone,
-                    'email' => $email,
-                    'username' => $username,
-                    'subdomain' => $subdomain,
-                    'role' => $role,
-                    'payload' => $payload,
-                    'date_create' => $create,
-                    'expired' => $expired,
-                    'datenow' => $today
+                    'data' => [
+                        'expired_trial' => 1,
+                        'uid' => $uid,
+                        'name' => $name,
+                        'main' => $main,
+                        'logoUrl' => $logoUrl,
+                        'phone' => $phone,
+                        'email' => $email,
+                        'username' => $username,
+                        'subdomain' => $subdomain,
+                        'role' => $role,
+                        'payload' => $payload,
+                        'date_create' => $create,
+                        'expired' => $expired,
+                        'datenow' => $today
+                    ]
                 ]);
             }else{
                 //login
                 $response = response()->json([
                     'Success' => '200',
                     'Message' => 'Akun sudah terdaftar dan berhasil login.',
-                    'expired_trial' => 0,
-                    'uid' => $uid,
-                    'name' => $name,
-                    'main' => $main,
-                    'logoUrl' => $logoUrl,
-                    'phone' => $phone,
-                    'email' => $email,
-                    'username' => $username,
-                    'subdomain' => $subdomain,
-                    'role' => $role,
-                    'payload' => $payload,
-                    'date_create' => $create,
-                    'expired' => $expired,
+                    'data' => [
+                        'expired_trial' => 0,
+                        'uid' => $uid,
+                        'name' => $name,
+                        'main' => $main,
+                        'logoUrl' => $logoUrl,
+                        'phone' => $phone,
+                        'email' => $email,
+                        'username' => $username,
+                        'subdomain' => $subdomain,
+                        'role' => $role,
+                        'payload' => $payload,
+                        'date_create' => $create,
+                        'expired' => $expired,
+                    ]
                 ]);
             } 
 

@@ -53,22 +53,22 @@ class LoginController extends Controller
                     $response = response()->json([
                         'Success' => '200',
                         'Message' => $message,
-                        'expired_trial' => $expired_trial,
-                        'uid' => $val->id,
-                        'role' => $val->role,
-                        'username' => $val->username,
-                        'name' => $val->name,
-                        'phone' => $val->phone,
-                        'email' => $val->email,
-                        'subdomain' => $val->subdomain,
-                        'logoUrl' => $val->logoUrl,
-                        'main' => $main,
-                        'token' => Hash::make($val->email),
-                        'date_create' => $val->created_at,
-                        'expired' => $expired,
-                        'datenow' => $today
+                        'data' =>[
+                            'expired_trial' => $expired_trial,
+                            'uid' => $val->id,
+                            'role' => $val->role,
+                            'username' => $val->username,
+                            'name' => $val->name,
+                            'phone' => $val->phone,
+                            'email' => $val->email,
+                            'subdomain' => $val->subdomain,
+                            'logoUrl' => $val->logoUrl,
+                            'main' => $main,
+                            'token' => Hash::make($val->email),
+                            'date_create' => $val->created_at,
+                            'expired' => $expired,
+                            'datenow' => $today]
                     ]);
-
                 }
             }
             return $response;
