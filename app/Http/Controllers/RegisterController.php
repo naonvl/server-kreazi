@@ -34,51 +34,58 @@ class RegisterController extends Controller
             }
         }
 
-        if($available == 1 && User::create($que) == true){
-            // Auth::attempt($que);
-            foreach (User::all() as $val) {
-                if($val->email == $que['email']){
-                    $main = 'false';
-                    if($val->main == 1){
-                        $main = 'true';
-                    }
-                    foreach (AppSetting::all() as $app) {
-                        $expired_trial = $app->expired_trial;
-                    }
-                   
-                    $today = Carbon::today()->locale('id');
-                    $date_create = $val->created_at;
-                    $expired = $date_create->addDays($expired_trial);
-                    $expired_trial = 0;
-
-                    $response = response()->json([
-                        'success' => '200',
-                        'message' => 'Berhasil Didaftarkan',
-                        'data' => [
-                            'expired_trial' => $expired_trial,
-                            'uid' => $val->id,
-                            'role' => $val->role,
-                            'username' => $val->username,
-                            'name' => $val->name,
-                            'phone' => $val->phone,
-                            'email' => $val->email,
-                            'subdomain' => $val->subdomain,
-                            'logoUrl' => $val->logoUrl,
-                            'main' => $main,
-                            'token' => Hash::make($val->email),
-                            'date_create' => $val->created_at,
-                            'expired' => $expired,
-                            'datenow' => $today
-                        ]
-                    ]);
-                }
-            }
-            return $response;
-        }else{
+        if($available == 0){
             return response()->json([
                 'success' => '0',
-                'message' => 'Gagal Registrasi!'
+                'message' => 'Email sudah terdaftar!'
             ]);
+        }else{
+            if($available == 1 && User::create($que) == true){
+                // Auth::attempt($que);
+                foreach (User::all() as $val) {
+                    if($val->email == $que['email']){
+                        $main = 'false';
+                        if($val->main == 1){
+                            $main = 'true';
+                        }
+                        foreach (AppSetting::all() as $app) {
+                            $expired_trial = $app->expired_trial;
+                        }
+                    
+                        $today = Carbon::today()->locale('id');
+                        $date_create = $val->created_at;
+                        $expired = $date_create->addDays($expired_trial);
+                        $expired_trial = 0;
+
+                        $response = response()->json([
+                            'success' => '200',
+                            'message' => 'Berhasil Didaftarkan',
+                            'data' => [
+                                'expired_trial' => $expired_trial,
+                                'uid' => $val->id,
+                                'role' => $val->role,
+                                'username' => $val->username,
+                                'name' => $val->name,
+                                'phone' => $val->phone,
+                                'email' => $val->email,
+                                'subdomain' => $val->subdomain,
+                                'logoUrl' => $val->logoUrl,
+                                'main' => $main,
+                                'token' => Hash::make($val->email),
+                                'date_create' => $val->created_at,
+                                'expired' => $expired,
+                                'datenow' => $today
+                            ]
+                        ]);
+                    }
+                }
+                return $response;
+            }else{
+                return response()->json([
+                    'success' => '0',
+                    'message' => 'Gagal Registrasi!'
+                ]);
+            }
         }
     }
 
