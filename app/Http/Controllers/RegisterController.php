@@ -23,6 +23,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'name' => $request->name,
             'username' => $request->username,
+            'subdomain' => $request->username,
             'phone' => $request->whatsapp,
             'kota' => $request->kota,
             'logoUrl' => "",
