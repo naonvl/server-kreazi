@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\User;
+use Carbon\Carbon;
 use App\Models\AppSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class RegisterController extends Controller
         $data = $request->json()->all();
 
         //add logic role
-        
+
         $que = [
             'role' => $request->role,
             'email' => $request->email,
@@ -51,7 +52,7 @@ class RegisterController extends Controller
                         foreach (AppSetting::all() as $app) {
                             $expired_trial = $app->expired_trial;
                         }
-                    
+
                         $today = Carbon::today()->locale('id');
                         $date_create = $val->created_at;
                         $expired = $date_create->addDays($expired_trial);
