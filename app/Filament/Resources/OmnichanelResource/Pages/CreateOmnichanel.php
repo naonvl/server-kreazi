@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateOmnichanel extends CreateRecord
 {
     protected static string $resource = OmnichanelResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

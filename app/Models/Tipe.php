@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tipe extends Model
 {
     protected $table = 'tipe';
-    protected $primaryKey = 'tipe_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',

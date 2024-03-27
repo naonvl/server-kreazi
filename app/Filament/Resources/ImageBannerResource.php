@@ -12,24 +12,26 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
 
 class ImageBannerResource extends Resource
 {
     protected static ?string $model = ImageBanner::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Seting Aplikasi';
+    protected static ?string $navigationIcon = 'heroicon-c-photo';
+    protected static ?string $navigationLabel = 'Gambar Banner Home';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('url')
-                    ->required()
-                    ->maxLength(100),
-                Forms\Components\DateTimePicker::make('create_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('modified_date')
-                    ->required(),
+                FileUpload::make('logoUrl')
+                    ->label('Logo')
+                    ->disk('public')
+                    ->directory('akun'),
+                    // ->visibility('private'),
             ]);
     }
 
@@ -37,14 +39,9 @@ class ImageBannerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('url')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('create_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('modified_date')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('url')
+                    ->label('Gambar Banner'),
+                    // ->directory('akun'),
             ])
             ->filters([
                 //

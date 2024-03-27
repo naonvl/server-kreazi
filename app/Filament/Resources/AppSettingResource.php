@@ -17,13 +17,20 @@ class AppSettingResource extends Resource
 {
     protected static ?string $model = AppSetting::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Seting Aplikasi';
+    protected static ?string $navigationIcon = 'heroicon-s-wrench-screwdriver';
+    protected static ?string $navigationLabel = 'Setting';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('expired_trial')
+                    ->label('Expired Trial')
+                    ->required()
+                    ->numeric()
+                    ->placeholder('Isi Angka Berapa Hari')
+                    ->maxLength(100),
             ]);
     }
 
@@ -31,7 +38,10 @@ class AppSettingResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('expired_trial')
+                    ->label('Expired Trial'),
+                Tables\Columns\TextColumn::make('logo')
+                    ->label('Logo Aplikasi'),
             ])
             ->filters([
                 //

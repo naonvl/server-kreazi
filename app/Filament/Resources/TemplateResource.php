@@ -4,10 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TemplateResource\Pages;
 use App\Filament\Resources\TemplateResource\RelationManagers;
+use App\Models\Tipe;
 use App\Models\Template;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,32 +21,38 @@ class TemplateResource extends Resource
 {
     protected static ?string $model = Template::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Order';
+    protected static ?string $navigationIcon = 'heroicon-m-pencil-square';
+    protected static ?string $navigationLabel = 'Template';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama Template')
                     ->required()
                     ->maxLength(100),
-                Forms\Components\TextInput::make('tipe')
+                Select::make('tipe')
                     ->required()
-                    ->numeric(),
+                    ->options(Tipe::where('status', 1)->pluck('name', 'id')),
                 Forms\Components\TextInput::make('template')
                     ->required(),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->required()
-                    ->maxLength(500),
-                Forms\Components\TextInput::make('user')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(11),
-                Forms\Components\DateTimePicker::make('create_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('modified_date')
+                FileUpload::make('thumbnail')
+                    ->label('Logo')
+                    ->disk('public')
+                    ->directory('akun'),
+                    // ->visibility('private'),
+                Select::make('user')
+                    ->label('Pembuat Template')
+                    // ->searchable()
+                    ->options(User::where('role', 1)->pluck('name', 'id')),
+                Select::make('status')
+                    ->options([
+                        '0' => 'Draft',
+                        '1' => 'Publish'
+                    ])
                     ->required(),
             ]);
     }
@@ -53,22 +63,25 @@ class TemplateResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tipe')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('jenis.name')
+                    ->label('Tipe')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('thumbnail')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user')
-                    ->numeric()
+                Tables\Columns\ImageColumn::make('thumbnail'),
+                    // ->searchable(),
+                Tables\Columns\TextColumn::make('pembuat.name')
+                    ->label('Pembuat Template')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('create_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('modified_date')
-                    ->dateTime()
-                    ->sortable(),
+                    ->searchable()
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        '0' => 'Draft',
+                        '1' => 'Publish'
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        '0' => 'danger',
+                        '1' => 'success',
+                    }),
             ])
             ->filters([
                 //

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Omnichanel extends Model
 {
     protected $table = 'omnichanel';
-    protected $primaryKey = 'id_omnichanel';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'logo',

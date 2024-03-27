@@ -3,11 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Tipe;
+use App\Models\Template;
 
 class Product extends Model
 {
     protected $table = 'product';
     protected $primaryKey = 'product_id';
+
+    public function penjual(){ 
+        return $this->belongsTo(User::class, 'mitra');
+    }
+
+    public function pembeli(){ 
+        return $this->belongsTo(User::class, 'customer');
+    }
+
+    public function jenis(){ 
+        return $this->belongsTo(Tipe::class, 'tipe');
+    }
+
+    public function template_gbr(){ 
+        return $this->belongsTo(Template::class, 'id_template');
+    }
 
     protected $fillable = [
         'is_dropship',

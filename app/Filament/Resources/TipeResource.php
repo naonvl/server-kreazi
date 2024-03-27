@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -17,7 +18,10 @@ class TipeResource extends Resource
 {
     protected static ?string $model = Tipe::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationGroup = 'Seting Aplikasi';
+    protected static ?string $navigationIcon = 'heroicon-c-list-bullet';
+    protected static ?string $navigationLabel = 'Tipe / Kategori';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -25,13 +29,14 @@ class TipeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(10),
-                Forms\Components\DateTimePicker::make('create_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('modified_date')
+                    ->maxLength(50)
+                    // ->unique(column: 'name'),
+                    ->unique(column: 'name', ignoreRecord: true),
+                Select::make('status')
+                    ->options([
+                        '0' => 'Draft',
+                        '1' => 'Active'
+                    ])
                     ->required(),
             ]);
     }
@@ -43,19 +48,28 @@ class TipeResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('create_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('modified_date')
-                    ->dateTime()
-                    ->sortable(),
+                    ->searchable()
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        '0' => 'Draft',
+                        '1' => 'Active'
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        '0' => 'danger',
+                        '1' => 'success',
+                    }),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->mutateRecordDataUsing(function (array $data): array {
+                    $data['tipe_id'] = auth()->id();
+             
+                    return $data;
+                }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

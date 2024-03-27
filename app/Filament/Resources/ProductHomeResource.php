@@ -17,7 +17,10 @@ class ProductHomeResource extends Resource
 {
     protected static ?string $model = ProductHome::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Seting Aplikasi';
+    protected static ?string $navigationIcon = 'heroicon-c-tag';
+    protected static ?string $navigationLabel = 'Produk Home';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

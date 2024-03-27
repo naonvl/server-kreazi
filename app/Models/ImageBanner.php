@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ImageBanner extends Model
 {
     protected $table = 'image_banner';
-    protected $primaryKey = 'id_image';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'url',

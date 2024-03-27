@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateImageBanner extends CreateRecord
 {
     protected static string $resource = ImageBannerResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

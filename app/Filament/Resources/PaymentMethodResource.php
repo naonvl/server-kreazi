@@ -17,19 +17,20 @@ class PaymentMethodResource extends Resource
 {
     protected static ?string $model = PaymentMethod::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Seting Aplikasi';
+    protected static ?string $navigationIcon = 'heroicon-m-credit-card';
+    protected static ?string $navigationLabel = 'Metode Pembayaran';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('logo')
-                    ->required()
-                    ->maxLength(100),
-                Forms\Components\DateTimePicker::make('create_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('modified_date')
-                    ->required(),
+                FileUpload::make('logo')
+                    ->label('Logo')
+                    ->disk('public')
+                    ->directory('akun'),
+                    // ->visibility('private'),
             ]);
     }
 
@@ -37,14 +38,9 @@ class PaymentMethodResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('logo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('create_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('modified_date')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label('Gambar Payment Channel'),
+                    // ->directory('akun'),
             ])
             ->filters([
                 //
