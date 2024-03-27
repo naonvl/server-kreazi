@@ -31,6 +31,7 @@ class Mitra extends Authenticatable
         'password',
         'username',
         // 'role',
+        'nama_toko',
         'member',
         'subdomain',
         'logoUrl',

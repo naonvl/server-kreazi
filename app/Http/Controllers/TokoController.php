@@ -2,10 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Mitra;
 use App\Models\Product;
 use App\Models\Tipe;
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 // use App\Http\Requests\MultipartFormRequest;
 
 class TokoController extends Controller
@@ -325,6 +327,38 @@ class TokoController extends Controller
             return response()->json([
                 'success' => '200',
                 'message' => 'Data Dropship Berhasil di Update'
+            ]);
+        }else{
+            return response()->json([
+                'success' => '500',
+                'message' => 'Update data gagal!',
+				500
+            ]);
+        }
+	}
+
+	public function edit_toko(Request $request){
+		if (!$request->has('logo')) {
+            return response()->json(['message' => 'Missing file'], 422);
+        }else{
+			$nama = str_replace(' ', '-', $request->subdomain); 
+
+			$file = $request->file('logo');
+			$nama_file = $nama."_".time().".".$file->extension();
+			$file->move(storage_path('/app/public/akun/'), $nama_file);
+		}
+
+		$que = [
+			'subdomain' => $request->subdomain,
+			'nama_toko' => $request->nama_toko,
+			'logoUrl' => url("storage/app/public/akun/".$nama_file),
+		];
+
+		$user = Mitra::findorfail($request->uid);
+        if($user->update($que)){
+            return response()->json([
+                'success' => '200',
+                'message' => 'Data Toko Berhasil di Update'
             ]);
         }else{
             return response()->json([

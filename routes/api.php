@@ -44,7 +44,7 @@ Route::post('/login', [LoginController::class, 'index']);
 Route::post('/auth', [FirebaseController::class, 'auth']);//->middleware('auth');
 Route::post('/register', [RegisterController::class, 'index']);
 Route::post('/updateUser', [UpdateUserController::class, 'index'])->middleware('token');
-Route::get('/profileUser', [ProfileController::class, 'index'])->middleware(Token::class);
+Route::get('/profileUser/{uid}', [ProfileController::class, 'index'])->middleware(Token::class);
 
 //route admin
 Route::get('/admin/tipe', [TokoController::class, 'get_tipe'])->middleware(Token::class);
@@ -65,6 +65,8 @@ Route::get('/mitra/allTemplate', [TokoController::class, 'get_template'])->middl
 Route::get('/mitra/produkMitra/{uid}', [TokoController::class, 'produkMitra'])->middleware(Token::class);
 Route::post('/mitra/addProduk_mitra', [TokoController::class, 'add_produk_mitra'])->middleware(Token::class);
 Route::post('/mitra/editProduk_mitra', [TokoController::class, 'edit_produk_mitra'])->middleware(Token::class);
+
+Route::post('/mitra/editToko', [TokoController::class, 'edit_toko'])->middleware(Token::class);
 
 // Route::post('/toko', [TokoController::class, 'index'])->middleware(Token::class);
 // Route::post('/bukaToko', [TokoController::class, 'buka_toko'])->middleware(Token::class);

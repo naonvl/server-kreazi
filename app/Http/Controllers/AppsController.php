@@ -70,16 +70,20 @@ class AppsController extends Controller
 			$content_data['harga_subs'] = $val->harga_subs;
 			foreach(ContentDetail::where('id_content', $val->id_content)->get() as $key){
 				if($val->id_content == $key->id_content){
-					$detail_data['benefit'] = $key->benefit;
-					array_push($detail_array, $detail_data);
+					// $detail_data['benefit'] = $key->benefit;
+					// array_push($detail_array, $detail_data);
+					array_push($detail_array, $key->benefit);
 				}
 			}
+			// $benefit = implode(', ', $detail_array);
 			$content_data['benefit'] = $detail_array;
 			array_push($content_array, $content_data);
 		}
 		return response()->json([
+			'success' => 200,
+			'message' => 'konten benefit register page',
+			'data' => $content_array,
 			// 'product_banner' => ProductHome::all(),
-			'content' => $content_array,
 			200
 		]);
 	}

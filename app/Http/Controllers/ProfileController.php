@@ -6,14 +6,8 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request){
-        $data = $request->json()->all();
-
-        $que = [
-            'id' => $data['uid'],
-        ];
-
-        $user = User::findorfail($que['id']);
+    public function index($uid){
+        $user = User::findorfail($uid);
         return compact('user');
     }
 }
