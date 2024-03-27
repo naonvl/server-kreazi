@@ -250,9 +250,9 @@ class TokoController extends Controller
 		return $response;
 	}
 
-	public function produkMitra(Request $request){
+	public function produkMitra($mitra){
 		$response = response()->json([
-			'product' => Product::where('mitra', $request->uid)->get(),
+			'product' => Product::where('mitra', $mitra)->get(),
 		]);
 		return $response;
 	}
